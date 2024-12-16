@@ -29,11 +29,11 @@ public class Main {
         System.out.println(manager.printEpicForId(5));
 
         System.out.println("Список задач:");
-        manager.printAllTasks();
+        System.out.println(manager.printAllTasks());
         System.out.println("Список эпиков:");
-        manager.printAllEpics();
+        System.out.println(manager.printAllEpics());
         System.out.println("Список подзадач:");
-        manager.printAllSubtasks();
+        System.out.println(manager.printAllSubtasks());
 
         System.out.println("Задача до изменения:");
         System.out.println(manager.printTaskForId(1));
@@ -42,10 +42,10 @@ public class Main {
         System.out.println(manager.printTaskForId(1));
 
         System.out.println("Список задач до удаления задачи ID: 1");
-        manager.printAllTasks();
+        System.out.println(manager.printAllTasks());
         manager.deleteTaskForId(1);
         System.out.println("Список задач после удаления:");
-        manager.printAllTasks();
+        System.out.println(manager.printAllTasks());
 
         System.out.println("Список подзадач Эпика ID: 5");
         manager.addSubtask("Подзадача №3", "Описание подзадачи №3", TaskStatus.IN_PROGRESS, 5);
@@ -53,12 +53,19 @@ public class Main {
         manager.printEpicSubtasks(5);
         manager.deleteSubtaskForId(7);
         System.out.println("Список подзадач Эпика ID: 5 после удаления подзадачи ID: 7");
-        manager.printEpicSubtasks(5);
+        System.out.println(manager.printEpicSubtasks(5));
 
         System.out.println("Эпик ID:5 до изменения статуса подзадачи ID 8");
         System.out.println(manager.printEpicForId(5));
         manager.changeSubtask(8,"Подзадача №3", "Описание подзадачи №3", TaskStatus.NEW, 5);
         System.out.println("Эпик ID:5 после изменения статуса подзадачи ID 8");
         System.out.println(manager.printEpicForId(5));
+
+        System.out.println(manager.printAllTasksEpicsSubtasks());
+        System.out.println(manager.printEpicSubtasks(5));
+        manager.changeEpic(5, "Эпик №1_1", "Описание эпика №1_1");
+
+        System.out.println(manager.printAllTasksEpicsSubtasks());
+        System.out.println(manager.printEpicSubtasks(5));
     }
 }

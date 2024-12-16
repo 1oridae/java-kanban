@@ -53,27 +53,23 @@ public class TaskManager {
     // Добавление подзадачи
 
     public void addSubtask(String name, String description, TaskStatus subtaskStatus, int epicId){
-        if (epics.containsKey(epicId)) {
             Subtask newSubtask = new Subtask(this.id, name, description, subtaskStatus, epicId);
             subtasks.put(this.id, newSubtask);
             epics.get(epicId).subtaskIds.add(this.id);
             this.id++;
-        } else {
-            System.out.println("Эпик под введенным id не создан или введен некорректный id");
-        }
     }
 
-    public String printTaskForId(int id) {
-        return tasks.get(id).toString();
+    public Task printTaskForId(int id) {
+        return tasks.get(id);
     }
 
-    public String printEpicForId(int id) {
+    public Epic printEpicForId(int id) {
         updateStatusEpic(id);
-        return epics.get(id).toString();
+        return epics.get(id);
     }
 
-    public String printSubtaskForId(int id) {
-        return subtasks.get(id).toString();
+    public Subtask printSubtaskForId(int id) {
+        return subtasks.get(id);
     }
 
     public void deleteTaskForId(int id) {
@@ -104,7 +100,6 @@ public class TaskManager {
     }
 
     public void changeEpic(int id, String name, String description) {
-        // Интересно, успеет ли передасться массив
         epics.put(id, new Epic(id, name, description, epics.get(id).subtaskIds));
     }
 
@@ -129,34 +124,46 @@ public class TaskManager {
         subtasks.clear();
     }
     
-    public void printAllTasks(){
+    public StringBuilder printAllTasks(){
+        StringBuilder allTasks = new StringBuilder("Все задачи: \n");
         for (Integer tasksKey : tasks.keySet()) {
-            System.out.println(tasks.get(tasksKey).toString());
+            allTasks.append(tasks.get(tasksKey).toString()).append("\n");
         }
+        return allTasks;
     }
 
-    public void printAllEpics(){
+    public StringBuilder printAllEpics(){
+        StringBuilder allEpics = new StringBuilder("Все эпики: \n");
         for (Integer keyEpics : epics.keySet()) {
             updateStatusEpic(keyEpics);
+            allEpics.append(epics.get(keyEpics).toString()).append("\n");
         }
-
-        for (Integer epicsKey : epics.keySet()) {
-            System.out.println(epics.get(epicsKey).toString());
-        }
+        return allEpics;
     }
 
-    public void printAllSubtasks(){
+    public StringBuilder printAllSubtasks(){
+        StringBuilder allSubtasks = new StringBuilder("Все подзадачи: \n");
         for (Integer subtasksKey : subtasks.keySet()) {
-            System.out.println(subtasks.get(subtasksKey).toString());
+            allSubtasks.append(subtasks.get(subtasksKey).toString()).append("\n");
         }
+        return  allSubtasks;
     }
 
-    public void printEpicSubtasks(int epicId){
+    public StringBuilder printEpicSubtasks(int epicId){
+        StringBuilder epicSubtasks = new StringBuilder("Подзадачи эпика: \n");
         for (Integer subtasksKey : subtasks.keySet()){
             if (epics.get(epicId).subtaskIds.contains(subtasksKey)){
-                System.out.println(subtasks.get(subtasksKey).toString());
+                epicSubtasks.append(subtasks.get(subtasksKey).toString()).append("\n");
             }
         }
+        return epicSubtasks;
     }
+
+    public StringBuilder printAllTasksEpicsSubtasks(){
+        StringBuilder allTasksEpicsSubtasks = printAllTasks().append(printAllSubtasks().append(printAllEpics()));
+        return allTasksEpicsSubtasks;
+    }
+
+
 
 }
