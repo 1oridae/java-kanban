@@ -6,17 +6,18 @@ public class Epic extends Task {
 
     public ArrayList<Integer> subtaskIds = new ArrayList<>();
 
-    public Epic(int id,
-                String name,
+    public Epic(String name,
                 String description) {
-        super(id, name, description);
+        super(name, description);
     }
 
-    public Epic(int id,
-                String name,
-                String description,
-                ArrayList<Integer> subtaskIds){
-        super(id, name, description);
-        this.subtaskIds = subtaskIds;
+    public String toString() {
+        return "ID: " + id +
+                "; Наименование: " + name +
+                "; Описание: " + description +
+                "; Статус: " + status +
+                "; ID подзадач:" + subtaskIds;
     }
+
+
 }
